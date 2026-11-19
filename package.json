@@ -1,0 +1,16 @@
+{
+  "name": "reppo",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": ">=22"
+  },
+  "description": "Reppo: gym tracker that lifts by how rested you feel, with guided recovery routines. Installable web app (PWA).",
+  "scripts": {
+    "start": "node scripts/serve.js",
+    "test": "node --test --test-force-exit \"tests/**/*.test.js\""
+  },
+  "devDependencies": {
+    "jsdom": "^31.0.1"
+  }
+}
