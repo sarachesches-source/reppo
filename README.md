@@ -29,7 +29,9 @@ Installing needs the app on a secure (https) web address. GitHub Pages hosts it 
    `main` branch, root folder. Your address will look like `https://<username>.github.io/reppo/`.
 2. **Android:** open that address in Chrome, tap the three-dot menu, then **Install app**
    (or **Add to home screen**).
-3. **iPhone:** open it in Safari, tap Share, then **Add to Home Screen**.
+3. **iPhone:** open it in Safari, tap Share, then **Add to Home Screen**, and from then on open Reppo
+   from that icon. On iPhone the Home Screen app keeps its own log, separate from Safari, so restore
+   your backup inside the Home Screen app.
 
 ## Move your existing log
 

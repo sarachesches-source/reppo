@@ -56,6 +56,9 @@ The goal right now is to get it installed on her Android phone, then onto Google
   maps each lift to its base pose. Coordinates are in a 120x80 box. Near limbs are light, far limbs grey.
   Props: `wall`, `ln`, `roller`, `wt`, `arc`, `updown`, `box`, `label`, `backwall`. After changing
   figures, render them to a PNG contact sheet and look at it.
+- iPhone: the Train tab shows an "Add to Home Screen" hint in iOS Safari only (`iosBrowser()`).
+  Home Screen apps keep storage separate from Safari, and Safari may evict data for sites unused for
+  7 days. Keep text inputs at 16px or larger, or iOS zooms in when they are tapped.
 - Dormant code: `initCloud()` and `flush()` call `window.claude.use("db")`, which only exists when the
   page runs as a Claude artifact. Here it falls back to local storage ("Saved on this device only").
   Safe to remove, or replace with a real backend.

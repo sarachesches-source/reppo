@@ -2432,6 +2432,17 @@ function render() {
               : vMore();
   renderSheet();
 }
+// True on iPhone/iPad when Reppo is open in the browser rather than as the Home Screen app.
+function iosBrowser() {
+  if (typeof navigator === "undefined") return false;
+  const ios =
+    /iPhone|iPad|iPod/.test(navigator.userAgent) ||
+    (/Macintosh/.test(navigator.userAgent) && navigator.maxTouchPoints > 1);
+  const standalone =
+    navigator.standalone === true ||
+    (typeof matchMedia === "function" && matchMedia("(display-mode: standalone)").matches);
+  return ios && !standalone;
+}
 function vStart() {
   const rows = MUSCLES.map((m) => {
     const t = muscleLast(m);
@@ -2466,6 +2477,9 @@ function vStart() {
     pn = planNext();
   return (
     (flash ? '<div class="toast" role="status">' + esc(flash) + "</div>" : "") +
+    (iosBrowser()
+      ? '<section class="panel ios-hint"><h2>Add Reppo to your Home Screen</h2><p class="sub">In Safari, tap Share, then Add to Home Screen. Then open Reppo from that icon. On iPhone, Safari can delete a log that is only saved in the browser, and the Home Screen app keeps its own separate log.</p></section>'
+      : "") +
     '<header class="stack"><h1>What feels ready today?</h1><p class="sub">' +
     dfmt(Date.now(), { weekday: "long", day: "numeric", month: "long" }) +
     " · " +

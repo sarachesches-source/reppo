@@ -2,7 +2,7 @@
 // Strategy: stale-while-revalidate. Cached files are served instantly, then refreshed in the
 // background, so a new release shows up on the next launch.
 // Bump CACHE whenever the list of files below changes, so old caches get cleaned up.
-const CACHE = "reppo-v1";
+const CACHE = "reppo-v2";
 const SHELL = [
   "./",
   "./index.html",

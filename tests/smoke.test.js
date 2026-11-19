@@ -10,7 +10,7 @@ const root = path.join(__dirname, "..");
 const openWindows = [];
 after(() => openWindows.forEach((w) => w.close())); // stop app timers even when a test fails
 
-function boot() {
+function boot(opts = {}) {
   const js = fs.readFileSync(path.join(root, "app.js"), "utf8");
   const html = fs
     .readFileSync(path.join(root, "index.html"), "utf8")
@@ -24,6 +24,8 @@ function boot() {
     beforeParse(w) {
       w.localStorage.clear();
       w.addEventListener("error", (e) => errors.push(e.message));
+      if (opts.userAgent) Object.defineProperty(w.navigator, "userAgent", { value: opts.userAgent });
+      if (opts.standalone) Object.defineProperty(w.navigator, "standalone", { value: true });
     },
   });
   const w = dom.window;
@@ -200,4 +202,15 @@ test("progression rule: add reps, then add weight at the top of the range", () =
   assert.equal(suggest([{ w: 0, r: 8 }], "c").r, 9);
   assert.equal(suggest([], "c"), null);
   app.close();
+});
+
+test("iPhone in Safari shows how to add Reppo to the Home Screen, and only there", () => {
+  const ua = "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1";
+  const safari = boot({ userAgent: ua });
+  assert.match(safari.text(".ios-hint"), /Add to Home Screen/);
+  const installed = boot({ userAgent: ua, standalone: true });
+  assert.equal(installed.$(".ios-hint"), null);
+  const desktop = boot();
+  assert.equal(desktop.$(".ios-hint"), null);
+  assert.deepEqual([...safari.errors, ...installed.errors, ...desktop.errors], []);
 });

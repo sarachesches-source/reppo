@@ -22,6 +22,8 @@
 html,
 body {
   height: 100%;
+  overscroll-behavior: none; /* no rubber-band bounce of the whole page on iPhone */
+  -webkit-text-size-adjust: 100%;
 }
 body {
   background: var(--bg);
@@ -403,13 +405,13 @@ nav button[aria-current="page"] {
   height: 100%;
   display: flex;
   flex-direction: column;
-  padding: 16px 16px 0;
+  padding: calc(16px + env(safe-area-inset-top)) 16px 0;
   gap: 12px;
 }
 #sheet .list {
   flex: 1;
   overflow-y: auto;
-  padding-bottom: 24px;
+  padding-bottom: calc(24px + env(safe-area-inset-bottom));
   display: flex;
   flex-direction: column;
 }
@@ -420,6 +422,7 @@ nav button[aria-current="page"] {
   border: 1px solid var(--line);
   background: var(--panel);
   padding: 0 14px;
+  font-size: 16px; /* below 16px, iPhone Safari zooms in when the field is tapped */
 }
 select.field {
   appearance: none;
@@ -427,7 +430,7 @@ select.field {
 textarea.field {
   height: 120px;
   padding: 10px 14px;
-  font-size: 12px;
+  font-size: 16px;
   font-family: ui-monospace, Menlo, monospace;
 }
 .chips {
